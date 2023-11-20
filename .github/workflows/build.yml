@@ -69,9 +69,6 @@ jobs:
       - name: Checkout Push to Registry action
         uses: actions/checkout@v4
 
-      - name: Check just syntax
-        uses: ublue-os/just-action@v1
-
       - name: Matrix Variables
         run: |
           echo "BASE_IMAGE_NAME=${{ matrix.base_image_name }}" >> $GITHUB_ENV
@@ -197,6 +194,11 @@ jobs:
           oci: false
           extra-args: |
             --target=${{ matrix.base_name }}
+
+      # Make sure just syntax is valid before continuing build
+      - name: Check just syntax
+        id: check_just_syntax
+        uses: ublue-os/just-action@v1
 
       # Workaround bug where capital letters in your GitHub username make it impossible to push to GHCR.
       # https://github.com/macbre/push-to-ghcr/issues/12
