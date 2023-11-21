@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.1.0](https://github.com/d3-X-t3r/bazzite/compare/v2.0.2...v2.1.0) (2023-11-21)
+
+
+### Features
+
+* **deck:** Implement support for the DeckHD ([#573](https://github.com/d3-X-t3r/bazzite/issues/573)) ([4dadf8c](https://github.com/d3-X-t3r/bazzite/commit/4dadf8c2fea6a420a9e7924057264f59e576a9e0))
+* Preinstall GOverlay ([#572](https://github.com/d3-X-t3r/bazzite/issues/572)) ([f21da88](https://github.com/d3-X-t3r/bazzite/commit/f21da887538959088b4554c95591a714531533a9))
+
 ## [2.0.2](https://github.com/d3-X-t3r/bazzite/compare/v2.0.2...v2.0.2) (2023-11-21)
 
 
