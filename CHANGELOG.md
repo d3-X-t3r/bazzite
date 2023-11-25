@@ -1,5 +1,21 @@
 # Changelog
 
+## [2.2.0](https://github.com/d3-X-t3r/bazzite/compare/v2.1.0...v2.2.0) (2023-11-25)
+
+
+### Features
+
+* **deck:** Auto-disable bios updates for 32GB RAM decks. ([d1c6022](https://github.com/d3-X-t3r/bazzite/commit/d1c60228dee6e975ca0db67906c8ee9840d6a6fc))
+* **deck:** Include new galileo-mura package ([12b2875](https://github.com/d3-X-t3r/bazzite/commit/12b2875b847affac874105292355564d096bc98f))
+* **deck:** Switch to new steamdeck-dsp package for audio. ([460f111](https://github.com/d3-X-t3r/bazzite/commit/460f1110f2acd0e990a962f239ade63f5543b1f9))
+
+
+### Bug Fixes
+
+* **deck:** Improve just scripts for bios handling ([ab5a503](https://github.com/d3-X-t3r/bazzite/commit/ab5a5038ebd762a7568e3b1f82fafe334b4eac7c))
+* **deck:** Update jupiter-hw-support package ([0b35eda](https://github.com/d3-X-t3r/bazzite/commit/0b35edaa6c3d548a066924ebf007b121967f6b0f))
+* Drop DDControl as a default, caused unresponsive monitors for some users. ([d6dede7](https://github.com/d3-X-t3r/bazzite/commit/d6dede706abfe8f86265b9ee6dbb5b9a69443732))
+
 ## [2.1.0](https://github.com/d3-X-t3r/bazzite/compare/v2.0.2...v2.1.0) (2023-11-21)
 
 
