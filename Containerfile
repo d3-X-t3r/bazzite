@@ -7,12 +7,12 @@ ARG FEDORA_MAJOR_VERSION="${FEDORA_MAJOR_VERSION:-39}"
 
 FROM ${BASE_IMAGE}:${FEDORA_MAJOR_VERSION} AS bazzite
 
-ARG IMAGE_NAME="${IMAGE_NAME}"
-ARG IMAGE_VENDOR="${IMAGE_VENDOR}"
-ARG IMAGE_FLAVOR="${IMAGE_FLAVOR}"
-ARG AKMODS_FLAVOR="${AKMODS_FLAVOR}"
-ARG BASE_IMAGE_NAME="${BASE_IMAGE_NAME}"
-ARG FEDORA_MAJOR_VERSION="${FEDORA_MAJOR_VERSION}"
+ARG IMAGE_NAME="${IMAGE_NAME:-bazzite}"
+ARG IMAGE_VENDOR="${IMAGE_VENDOR:-ublue-os}"
+ARG IMAGE_FLAVOR="${IMAGE_FLAVOR:-main}"
+ARG AKMODS_FLAVOR="${AKMODS_FLAVOR:-main}"
+ARG BASE_IMAGE_NAME="${BASE_IMAGE_NAME:-kinoite}"
+ARG FEDORA_MAJOR_VERSION="${FEDORA_MAJOR_VERSION:-39}"
 
 COPY system_files/desktop/shared system_files/desktop/${BASE_IMAGE_NAME} /
 
@@ -95,6 +95,7 @@ RUN rpm-ostree install \
         libxcrypt-compat \
         mesa-libGLU \
         vulkan-tools \
+        glibc.i686 \
         extest.i686 \
         twitter-twemoji-fonts \
         google-noto-sans-cjk-fonts \
@@ -111,7 +112,18 @@ RUN rpm-ostree install \
     wget https://gitlab.com/popsulfr/steamos-btrfs/-/raw/main/files/usr/lib/systemd/system/btrfs-dedup@.timer -O /usr/lib/systemd/system/btrfs-dedup@.timer
 
 # Install Steam & Lutris, plus supporting packages
-RUN rpm-ostree install \
+RUN rpm-ostree override replace \
+    --experimental \
+    --from repo=updates \
+        pipewire \
+        pipewire-alsa \
+        pipewire-gstreamer \
+        pipewire-jack-audio-connection-kit \
+        pipewire-jack-audio-connection-kit-libs \
+        pipewire-libs \
+        pipewire-pulseaudio \
+        pipewire-utils && \
+    rpm-ostree install \
         vulkan-loader.i686 \
         alsa-lib.i686 \
         fontconfig.i686 \
@@ -211,7 +223,6 @@ RUN if grep -q "kinoite" <<< "${BASE_IMAGE_NAME}"; then \
         gnome-control-center-filesystem && \
     rpm-ostree install \
         gnome-shell-extension-tailscale-gnome-qs \
-        xwaylandvideobridge \
         steamdeck-backgrounds \
         gnome-randr-rust \
         gnome-shell-extension-user-theme \
@@ -344,11 +355,11 @@ RUN /tmp/image-info.sh && \
 
 FROM bazzite as bazzite-deck
 
-ARG IMAGE_NAME="${IMAGE_NAME}"
-ARG IMAGE_VENDOR="${IMAGE_VENDOR}"
-ARG IMAGE_FLAVOR="${IMAGE_FLAVOR}"
-ARG BASE_IMAGE_NAME="${BASE_IMAGE_NAME}"
-ARG FEDORA_MAJOR_VERSION="${FEDORA_MAJOR_VERSION}"
+ARG IMAGE_NAME="${IMAGE_NAME:-bazzite-deck}"
+ARG IMAGE_VENDOR="${IMAGE_VENDOR:-ublue-os}"
+ARG IMAGE_FLAVOR="${IMAGE_FLAVOR:-main}"
+ARG BASE_IMAGE_NAME="${BASE_IMAGE_NAME:-kinoite}"
+ARG FEDORA_MAJOR_VERSION="${FEDORA_MAJOR_VERSION:-39}"
 
 COPY system_files/deck/shared system_files/deck/${BASE_IMAGE_NAME} /
 
