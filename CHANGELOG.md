@@ -1,5 +1,28 @@
 # Changelog
 
+## [2.2.0](https://github.com/d3-X-t3r/bazzite/compare/v2.1.0...v2.2.0) (2023-11-28)
+
+
+### Features
+
+* add initramfs rebuilding with support for user defined initramfs args ([#586](https://github.com/d3-X-t3r/bazzite/issues/586)) ([0a97588](https://github.com/d3-X-t3r/bazzite/commit/0a9758813f386cdd9621730f932f0d38bb52fd27))
+* **deck:** Auto-disable bios updates for 32GB RAM decks. ([d1c6022](https://github.com/d3-X-t3r/bazzite/commit/d1c60228dee6e975ca0db67906c8ee9840d6a6fc))
+* **deck:** Include new galileo-mura package ([12b2875](https://github.com/d3-X-t3r/bazzite/commit/12b2875b847affac874105292355564d096bc98f))
+* **deck:** Switch to new steamdeck-dsp package for audio. ([460f111](https://github.com/d3-X-t3r/bazzite/commit/460f1110f2acd0e990a962f239ade63f5543b1f9))
+* **desktop:** Restore displaylink on desktop images, leave off of deck images until issues with MangoHUD are resolved. ([d8ee043](https://github.com/d3-X-t3r/bazzite/commit/d8ee04376d115568354a44aa2c977855e410ab37))
+* **desktop:** Switch from CoreCtrl to LACT as the default AMD overclocking solution. ([083dda2](https://github.com/d3-X-t3r/bazzite/commit/083dda26c6f7935d1e6a07c53bf629c5924c83a7))
+
+
+### Bug Fixes
+
+* **deck:** Improve just scripts for bios handling ([ab5a503](https://github.com/d3-X-t3r/bazzite/commit/ab5a5038ebd762a7568e3b1f82fafe334b4eac7c))
+* **deck:** Update jupiter-hw-support package ([0b35eda](https://github.com/d3-X-t3r/bazzite/commit/0b35edaa6c3d548a066924ebf007b121967f6b0f))
+* Drop DDControl as a default, caused unresponsive monitors for some users. ([d6dede7](https://github.com/d3-X-t3r/bazzite/commit/d6dede706abfe8f86265b9ee6dbb5b9a69443732))
+* Install proper 32 bit glibc package ([0b2c9af](https://github.com/d3-X-t3r/bazzite/commit/0b2c9af2a09138b630f0cdc694e56d22eb86246a))
+* **legion:** Disable X11 by default to correct issues with display rotation ([f6f407e](https://github.com/d3-X-t3r/bazzite/commit/f6f407e8e16e944fae5b0a7b5ced8877e241bbb4))
+* Reinstall pipewire from Fedora updates ([06d49d9](https://github.com/d3-X-t3r/bazzite/commit/06d49d96738bbc7919a32a88835ff2b01a234019))
+* Temporarily remove xwaylandvideobridge, fixes white box issue ([e9e6087](https://github.com/d3-X-t3r/bazzite/commit/e9e60873708660f971d6d0d090190e35440d4e9c))
+
 ## [2.1.0](https://github.com/d3-X-t3r/bazzite/compare/v2.0.2...v2.1.0) (2023-11-21)
 
 
