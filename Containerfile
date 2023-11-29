@@ -20,10 +20,6 @@ COPY system_files/desktop/shared system_files/desktop/${BASE_IMAGE_NAME} /
 COPY --from=ghcr.io/ublue-os/akmods:${AKMODS_FLAVOR}-${FEDORA_MAJOR_VERSION} /rpms /tmp/akmods-rpms
 RUN sed -i 's@enabled=0@enabled=1@g' /etc/yum.repos.d/_copr_ublue-os-akmods.repo && \
     sed -i "0,/enabled/ s@enabled=0@enabled=1@g" /etc/yum.repos.d/negativo17-fedora-multimedia.repo && \
-    if grep -qv "asus" <<< "${AKMODS_FLAVOR}"; then \
-        rpm-ostree install \
-            /tmp/akmods-rpms/kmods/*evdi*.rpm \
-    ; fi && \
     rpm-ostree install \
         /tmp/akmods-rpms/kmods/*gcadapter_oc*.rpm \
         /tmp/akmods-rpms/kmods/*nct6687*.rpm \
@@ -65,7 +61,11 @@ RUN rpm-ostree override remove \
         htop
 
 # Install new packages
-RUN rpm-ostree install \
+RUN if [[ "${IMAGE_FLAVOR}" =~ "nvidia" ]]; then \
+        rpm-ostree override remove \
+            glibc32 \
+    ; fi && \
+    rpm-ostree install \
         ublue-update \
         discover-overlay \
         python3-pip \
@@ -122,7 +122,8 @@ RUN rpm-ostree override replace \
         pipewire-jack-audio-connection-kit-libs \
         pipewire-libs \
         pipewire-pulseaudio \
-        pipewire-utils && \
+        pipewire-utils \
+        || true && \
     rpm-ostree install \
         vulkan-loader.i686 \
         alsa-lib.i686 \
@@ -378,12 +379,6 @@ RUN rpm-ostree install \
     /etc/akmods-rpms/*steamdeck*.rpm && \
     rm -rf /etc/akmods-rpms
 
-# Remove Displaylink/evdi from Deck images until issues with MangoHUD are sorted out.
-RUN if [[ -n $(rpm -qa | grep 'evdi\|displayport') ]]; then \
-        rpm-ostree remove \
-            $(rpm -qa | grep 'evdi\|displayport') \
-    ; fi
-
 # Configure KDE & GNOME
 RUN if grep -q "kinoite" <<< "${BASE_IMAGE_NAME}"; then \
     rpm-ostree override remove \
@@ -407,7 +402,6 @@ RUN if grep -q "kinoite" <<< "${BASE_IMAGE_NAME}"; then \
 RUN rpm-ostree install \
     jupiter-fan-control \
     jupiter-hw-support-btrfs \
-    steamdeck-dsp \
     galileo-mura \
     powerbuttond \
     HandyGCCS \
@@ -446,7 +440,7 @@ RUN rpm-ostree install \
 # Install Gamescope Session & Supporting changes
 # Add bootstraplinux_ubuntu12_32.tar.xz used by gamescope-session (Thanks ChimeraOS! - https://chimeraos.org/)
 # Remove Feral gamemode, System76-Scheduler supersedes this
-RUN wget https://steamdeck-packages.steamos.cloud/archlinux-mirror/jupiter-main/os/x86_64/steam-jupiter-stable-1.0.0.76-1-x86_64.pkg.tar.zst -O /tmp/steam-jupiter.pkg.tar.zst && \
+RUN wget https://steamdeck-packages.steamos.cloud/archlinux-mirror/jupiter-main/os/x86_64/steam-jupiter-stable-1.0.0.78-1.2-x86_64.pkg.tar.zst -O /tmp/steam-jupiter.pkg.tar.zst && \
     mkdir -p /usr/etc/first-boot && \
     tar -I zstd -xvf /tmp/steam-jupiter.pkg.tar.zst usr/lib/steam/bootstraplinux_ubuntu12_32.tar.xz -O > /usr/etc/first-boot/bootstraplinux_ubuntu12_32.tar.xz && \
     rm -f /tmp/steam-jupiter.pkg.tar.zst && \
