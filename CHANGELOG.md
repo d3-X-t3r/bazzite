@@ -1,5 +1,15 @@
 # Changelog
 
+## [2.2.1](https://github.com/d3-X-t3r/bazzite/compare/v2.2.0...v2.2.1) (2023-11-30)
+
+
+### Bug Fixes
+
+* Always return pipewire replacement as true ([72b73e8](https://github.com/d3-X-t3r/bazzite/commit/72b73e884e983c2a83688fe01be7395d2dd40772))
+* **deck:** Patch path to ladspa plugin in steamdeck-dsp ([bdb10d1](https://github.com/d3-X-t3r/bazzite/commit/bdb10d118512dd742e61eb58ba5ef7d664531944))
+* **deck:** Remove steamdeck-dsp for now ([086c17c](https://github.com/d3-X-t3r/bazzite/commit/086c17c1f8a9ad24410098f720e8d796c51abd1d))
+* **nvidia:** Remove older 32 bit glibc package ([290f766](https://github.com/d3-X-t3r/bazzite/commit/290f766affc9f87afc6758026abb5432549a5097))
+
 ## [2.2.0](https://github.com/d3-X-t3r/bazzite/compare/v2.1.0...v2.2.0) (2023-11-28)
 
 
