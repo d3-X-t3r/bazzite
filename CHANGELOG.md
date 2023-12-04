@@ -1,5 +1,21 @@
 # Changelog
 
+## [2.2.1](https://github.com/d3-X-t3r/bazzite/compare/v2.2.0...v2.2.1) (2023-12-04)
+
+
+### Bug Fixes
+
+* Always return pipewire replacement as true ([72b73e8](https://github.com/d3-X-t3r/bazzite/commit/72b73e884e983c2a83688fe01be7395d2dd40772))
+* **deck:** Correct rotation of Plymouth on Galileo ([e2be1e6](https://github.com/d3-X-t3r/bazzite/commit/e2be1e6c4084517b7f20d4363dca6e52684e81b1))
+* **deck:** Include wifi firmware for OLED deck ([b1337ff](https://github.com/d3-X-t3r/bazzite/commit/b1337ffbed37a7a3a32a84f33116e580175d73ee))
+* **deck:** Missing characters on Bazzite Portal ([#599](https://github.com/d3-X-t3r/bazzite/issues/599)) ([7608c6e](https://github.com/d3-X-t3r/bazzite/commit/7608c6ea38c3d7541c702899a29213567f31a56e))
+* **deck:** Patch path to ladspa plugin in steamdeck-dsp ([bdb10d1](https://github.com/d3-X-t3r/bazzite/commit/bdb10d118512dd742e61eb58ba5ef7d664531944))
+* **deck:** Remove steamdeck-dsp for now ([086c17c](https://github.com/d3-X-t3r/bazzite/commit/086c17c1f8a9ad24410098f720e8d796c51abd1d))
+* **deck:** Restore audio changes on main, this is in lieu of steamdeck-dsp which will remain on :testing for now. ([58ddbf4](https://github.com/d3-X-t3r/bazzite/commit/58ddbf4a3d0d20fd3236f4944311502d752d7922))
+* **gnome:** Cleanup dconf files, add service to apply. ([b9b1e42](https://github.com/d3-X-t3r/bazzite/commit/b9b1e42980c7c0dfef830e251f43df7aa70a9950))
+* Missing characters on Bazzite Portal ([#600](https://github.com/d3-X-t3r/bazzite/issues/600)) ([8bda75e](https://github.com/d3-X-t3r/bazzite/commit/8bda75e5b4a887ee2ab1b8218ee9de3a23702b1f))
+* **nvidia:** Remove older 32 bit glibc package ([290f766](https://github.com/d3-X-t3r/bazzite/commit/290f766affc9f87afc6758026abb5432549a5097))
+
 ## [2.2.0](https://github.com/d3-X-t3r/bazzite/compare/v2.1.0...v2.2.0) (2023-11-28)
 
 
