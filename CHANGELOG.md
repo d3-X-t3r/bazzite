@@ -1,5 +1,34 @@
 # Changelog
 
+## [2.3.0](https://github.com/d3-X-t3r/bazzite/compare/v2.2.0...v2.3.0) (2023-12-13)
+
+
+### Features
+
+* Add patched Xwayland for Nvidia 545. ([e9f304b](https://github.com/d3-X-t3r/bazzite/commit/e9f304bfb538d9b46a91f443997a5c39408db01a))
+
+
+### Bug Fixes
+
+* Add redhat-lsb-core to resolve issue with EmuDeck depending on lsb_release ([29399fb](https://github.com/d3-X-t3r/bazzite/commit/29399fb573a59704c45c7b29b8c360e96cfe7584))
+* Always return pipewire replacement as true ([72b73e8](https://github.com/d3-X-t3r/bazzite/commit/72b73e884e983c2a83688fe01be7395d2dd40772))
+* **boot menu:** Add missing ASUS NVIDIA entries ([2f3d8c5](https://github.com/d3-X-t3r/bazzite/commit/2f3d8c59c168e2c2905ae190045d6b4563d9a05f))
+* **boot menu:** Correct broken GNOME Surface entries ([febb15a](https://github.com/d3-X-t3r/bazzite/commit/febb15a5ef819b840adec5ad92db7316ed7f0eeb))
+* **boot menu:** Correct GNOME Surface sublabels too ([d2d9366](https://github.com/d3-X-t3r/bazzite/commit/d2d93663e6f9d3730ecf453de2549b2aeb045b8f))
+* **deck:** Add udev rule for Galileo brightness control ([b4b18bd](https://github.com/d3-X-t3r/bazzite/commit/b4b18bdcbe7b7abae95f62f9d2c469ae8f24bf5c))
+* **deck:** Correct rotation of Plymouth on Galileo ([e2be1e6](https://github.com/d3-X-t3r/bazzite/commit/e2be1e6c4084517b7f20d4363dca6e52684e81b1))
+* **deck:** Include wifi firmware for OLED deck ([b1337ff](https://github.com/d3-X-t3r/bazzite/commit/b1337ffbed37a7a3a32a84f33116e580175d73ee))
+* **deck:** Increase volume for LCD deck in steamdeck-dsp ([b9eb87f](https://github.com/d3-X-t3r/bazzite/commit/b9eb87f1fbf161c11d391149b7f5e871784ca2c2))
+* **deck:** Missing characters on Bazzite Portal ([#599](https://github.com/d3-X-t3r/bazzite/issues/599)) ([7608c6e](https://github.com/d3-X-t3r/bazzite/commit/7608c6ea38c3d7541c702899a29213567f31a56e))
+* **deck:** Patch path to ladspa plugin in steamdeck-dsp ([bdb10d1](https://github.com/d3-X-t3r/bazzite/commit/bdb10d118512dd742e61eb58ba5ef7d664531944))
+* **deck:** Prevent BIOS updates on DeckHD and 32GB decks even if requested. ([162dd80](https://github.com/d3-X-t3r/bazzite/commit/162dd801a603b6a730fc9d0ad80a273879f613e2))
+* **deck:** Remove steamdeck-dsp for now ([086c17c](https://github.com/d3-X-t3r/bazzite/commit/086c17c1f8a9ad24410098f720e8d796c51abd1d))
+* **deck:** Restore audio changes on main, this is in lieu of steamdeck-dsp which will remain on :testing for now. ([58ddbf4](https://github.com/d3-X-t3r/bazzite/commit/58ddbf4a3d0d20fd3236f4944311502d752d7922))
+* **gnome:** Cleanup dconf files, add service to apply. ([b9b1e42](https://github.com/d3-X-t3r/bazzite/commit/b9b1e42980c7c0dfef830e251f43df7aa70a9950))
+* Missing characters on Bazzite Portal ([#600](https://github.com/d3-X-t3r/bazzite/issues/600)) ([8bda75e](https://github.com/d3-X-t3r/bazzite/commit/8bda75e5b4a887ee2ab1b8218ee9de3a23702b1f))
+* **nvidia:** Remove older 32 bit glibc package ([290f766](https://github.com/d3-X-t3r/bazzite/commit/290f766affc9f87afc6758026abb5432549a5097))
+* Properly handle asus-nvidia images in enable-supergfxctl ([53398e9](https://github.com/d3-X-t3r/bazzite/commit/53398e92f3c5bf163a5e243a99c93a0060771624))
+
 ## [2.2.0](https://github.com/d3-X-t3r/bazzite/compare/v2.1.0...v2.2.0) (2023-11-28)
 
 
