@@ -9,7 +9,7 @@ screens:
       title: "Welcome to Bazzite"
       icon: "/usr/share/ublue-os/bazzite/logo.svg"
       description: |
-        Configure your system to get started
+        Configure your system to get started. This utility can be re-opened at any time, so don't feel like you have to get it perfect your first go-through.
   configure-bazzite:
     source: yafti.screen.package
     values:
@@ -22,17 +22,22 @@ screens:
           default: true
           packages:
           - Set input group: sudo -A ujust add-user-to-input-group
-        Greenlight:
-          description: A utility for xCloud and xHome streaming
+        Install Game Mode Startup Video:
+          description: Adds a Bazzite themed startup video for Steam's game mode.
+          default: true
+          packages:
+          - Install Video: ujust install-gamemode-video
+        Fix Steam Download Speed:
+          description: Adds a config file that fixes download speed under Steam for Linux.
+          default: true
+          packages:
+          - Fix Download Speed: ujust fix-steam-download-speed
+        Sunshine:
+          description: A self-hosted game stream host for Moonlight
           default: false
           packages:
-          - Retrieve Greenlight: ujust get-greenlight
-        Nix Package Manager:
-          description: Nix is a powerful package manager for Linux and other Unix systems that makes package management reliable and reproducible
-          default: false
-          packages:
-          - Install Nix Package Support: sudo -A ujust nix-install
-          - Install Fleek (Requires Nix): ujust fleek-install
+          - Install Sunshine: ujust install-sunshine
+          - Autostart Sunshine: ujust autostart-sunshine
         OpenRazer:
           description: Enables additional capabilities for Razer Hardware
           default: false
@@ -108,15 +113,18 @@ screens:
           - LibreWolf: io.gitlab.librewolf-community
           - Microsoft Edge: com.microsoft.Edge
           - Opera: com.opera.Opera
+          - Vivaldi: com.vivaldi.Vivaldi
         Gaming:
           description: "Rock and Stone!"
           default: false
           packages:
+          - BoilR: io.github.philipk.boilr
           - Bottles: com.usebottles.bottles
           - Chiaki (PlayStation Remote Play): re.chiaki.Chiaki
           - Discord: com.discordapp.Discord
           - DOSBox Staging: io.github.dosbox-staging
           - GeForce NOW Electron: io.github.hmlendea.geforcenow-electron
+          - Greenlight: io.github.unknownskl.greenlight
           - Heroic Games Launcher (GOG &amp; Epic): com.heroicgameslauncher.hgl
           - itch: io.itch.itch
           - ludusavi (Game Save Backup): com.github.mtkennerly.ludusavi
@@ -126,8 +134,10 @@ screens:
           - Mumble: info.mumble.Mumble
           - OpenMW: org.openmw.OpenMW
           - osu: sh.ppy.osu
+          - Parsec: com.parsecgaming.parsec
           - Space Cadet Pinball: com.github.k4zmu2a.spacecadetpinball
           - Sonic Robo Blast 2: org.srb2.SRB2
+          - Sonic Robo Blast 2 Kart: org.srb2.SRB2Kart
           - Steam Link: com.valvesoftware.SteamLink
           - SuperTux: org.supertuxproject.SuperTux
           - SuperTuxKart: net.supertuxkart.SuperTuxKart
@@ -145,6 +155,7 @@ screens:
           - melonDS: net.kuribo64.melonDS
           - mGBA: io.mgba.mGBA
           - PCSX2: net.pcsx2.PCSX2
+          - Parallel Launcher: ca.parallel_launcher.ParallelLauncher
           - Pegasus: org.pegasus_frontend.Pegasus
           - PPSSPP: org.ppsspp.PPSSPP
           - RetroArch: org.libretro.RetroArch
@@ -154,6 +165,7 @@ screens:
           - Ryujinx: org.ryujinx.Ryujinx
           - ScummVM: org.scummvm.ScummVM
           - Snes9x: com.snes9x.Snes9x
+          - Stella: io.github.stella_emu.Stella
           - xemu: app.xemu.xemu
           - yuzu: org.yuzu_emu.yuzu
         Streaming:
@@ -185,6 +197,7 @@ screens:
           - LibreOffice: org.libreoffice.LibreOffice
           - Obsidian: md.obsidian.Obsidian
           - OnlyOffice: org.onlyoffice.desktopeditors
+          - Planify: io.github.alainm23.planify
           - Slack: com.slack.Slack
           - Standard Notes: org.standardnotes.standardnotes
           - Tenacity: org.tenacityaudio.Tenacity
@@ -197,9 +210,12 @@ screens:
           - AppImage Pool: io.github.prateekmedia.appimagepool
           - Barrier: com.github.debauchee.barrier
           - Bitwarden: com.bitwarden.desktop
+          - BoxBuddy: io.github.dvlv.boxbuddyrs
           - Calibre: com.calibre_ebook.calibre
+          - DejaDup: org.gnome.DejaDup
           - Easy Effects: com.github.wwmm.easyeffects
           - Fedora Media Writer: org.fedoraproject.MediaWriter
+          - Gradience: com.github.GradienceTeam.Gradience
           - JamesDSP: me.timschneeberger.jdsp4linux
           - KeePassXC: org.keepassxc.KeePassXC
           - Metadata Cleaner: fr.romainvigier.MetadataCleaner
@@ -211,19 +227,6 @@ screens:
           - SaveDesktop: io.github.vikdevelop.SaveDesktop
           - Syncthing: com.github.zocker_160.SyncThingy
           - VLC: org.videolan.VLC
-  theme:
-    source: yafti.screen.title
-    values:
-      title: "GNOME Theme"
-      condition:
-        run: grep -q 'silverblue' <<< $(jq -r '."base-image-name"' < /usr/share/ublue-os/image-info.json)
-      links:
-      - "Vapor Theme":
-          run: ujust enable-vapor-theme
-      - "VGUI2 Theme":
-          run: ujust enable-vgui2-theme
-      description: |
-        Optionally apply a Valve-inspired theme to GNOME via Gradience. Note that custom themes are not officially supported by GNOME and some applications can break. Please avoid reporting issues to application developers until you've tested against the default theme.
   final-screen:
     source: yafti.screen.title
     values:
@@ -232,6 +235,8 @@ screens:
       links:
       - "Install More Applications":
           run: /usr/bin/plasma-discover
+      - "Documentation":
+          run: /usr/bin/xdg-open https://universal-blue.discourse.group/docs?category=5
       - "Forums":
           run: /usr/bin/xdg-open https://universal-blue.discourse.group/c/bazzite/5
       - "Join the Discord Community":
