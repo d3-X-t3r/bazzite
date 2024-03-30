@@ -12,7 +12,7 @@ FROM ${BASE_IMAGE}:${FEDORA_MAJOR_VERSION} AS bazzite
 ARG IMAGE_NAME="${IMAGE_NAME:-bazzite}"
 ARG IMAGE_VENDOR="${IMAGE_VENDOR:-ublue-os}"
 ARG IMAGE_FLAVOR="${IMAGE_FLAVOR:-main}"
-ARG AKMODS_FLAVOR="${AKMODS_FLAVOR:-fsync}"
+ARG AKMODS_FLAVOR="${AKMODS_FLAVOR:-main}"
 ARG IMAGE_BRANCH="${IMAGE_BRANCH:-main}"
 ARG BASE_IMAGE_NAME="${BASE_IMAGE_NAME:-kinoite}"
 ARG FEDORA_MAJOR_VERSION="${FEDORA_MAJOR_VERSION:-39}"
@@ -31,7 +31,6 @@ RUN wget https://copr.fedorainfracloud.org/coprs/kylegospo/bazzite/repo/fedora-"
     wget https://copr.fedorainfracloud.org/coprs/kylegospo/vk_hdr_layer/repo/fedora-"${FEDORA_MAJOR_VERSION}"/kylegospo-vk_hdr_layer-fedora-"${FEDORA_MAJOR_VERSION}".repo?arch=x86_64 -O /etc/yum.repos.d/_copr_kylegospo-vk_hdr_layer.repo && \
     wget https://copr.fedorainfracloud.org/coprs/ycollet/audinux/repo/fedora-"${FEDORA_MAJOR_VERSION}"/ycollet-audinux-fedora-"${FEDORA_MAJOR_VERSION}".repo -O /etc/yum.repos.d/_copr_ycollet-audinux.repo && \
     wget https://copr.fedorainfracloud.org/coprs/kylegospo/rom-properties/repo/fedora-"${FEDORA_MAJOR_VERSION}"/kylegospo-rom-properties-fedora-"${FEDORA_MAJOR_VERSION}".repo -O /etc/yum.repos.d/_copr_kylegospo-rom-properties.repo && \
-    wget https://copr.fedorainfracloud.org/coprs/kylegospo/prompt/repo/fedora-"${FEDORA_MAJOR_VERSION}"/kylegospo-prompt-fedora-"${FEDORA_MAJOR_VERSION}".repo -O /etc/yum.repos.d/_copr_kylegospo-prompt.repo && \
     wget https://copr.fedorainfracloud.org/coprs/kylegospo/joycond/repo/fedora-"${FEDORA_MAJOR_VERSION}"/kylegospo-joycond-fedora-"${FEDORA_MAJOR_VERSION}".repo -O /etc/yum.repos.d/_copr_kylegospo-joycond.repo && \
     wget https://copr.fedorainfracloud.org/coprs/kylegospo/VTFLib/repo/fedora-"${FEDORA_MAJOR_VERSION}"/kylegospo-VTFLib-fedora-"${FEDORA_MAJOR_VERSION}".repo -O /etc/yum.repos.d/_copr_kylegospo-VTFLib.repo && \
     wget https://copr.fedorainfracloud.org/coprs/kylegospo/webapp-manager/repo/fedora-"${FEDORA_MAJOR_VERSION}"/kylegospo-webapp-manager-fedora-"${FEDORA_MAJOR_VERSION}".repo -O /etc/yum.repos.d/_copr_kylegospo-webapp-manager.repo && \
@@ -42,20 +41,18 @@ RUN wget https://copr.fedorainfracloud.org/coprs/kylegospo/bazzite/repo/fedora-"
     wget https://pkgs.tailscale.com/stable/fedora/tailscale.repo -O /etc/yum.repos.d/tailscale.repo && \
     sed -i 's@gpgcheck=1@gpgcheck=0@g' /etc/yum.repos.d/tailscale.repo
 
-# Install kernel-fsync
-RUN wget https://copr.fedorainfracloud.org/coprs/sentry/kernel-fsync/repo/fedora-"${FEDORA_MAJOR_VERSION}"/sentry-kernel-fsync-fedora-"${FEDORA_MAJOR_VERSION}".repo -O /etc/yum.repos.d/_copr_sentry-kernel-fsync.repo && \
-    rpm-ostree cliwrap install-to-root / && \
-    rpm-ostree override replace \
-    --experimental \
-    --from repo=copr:copr.fedorainfracloud.org:sentry:kernel-fsync \
-        kernel-"${AKMODS_FLAVOR}".fc"${FEDORA_MAJOR_VERSION}".x86_64 \
-        kernel-core-"${AKMODS_FLAVOR}".fc"${FEDORA_MAJOR_VERSION}".x86_64 \
-        kernel-modules-"${AKMODS_FLAVOR}".fc"${FEDORA_MAJOR_VERSION}".x86_64 \
-        kernel-modules-core-"${AKMODS_FLAVOR}".fc"${FEDORA_MAJOR_VERSION}".x86_64 \
-        kernel-modules-extra-"${AKMODS_FLAVOR}".fc"${FEDORA_MAJOR_VERSION}".x86_64 \
-        kernel-uki-virt-"${AKMODS_FLAVOR}".fc"${FEDORA_MAJOR_VERSION}".x86_64 \
-        kernel-headers-"${AKMODS_FLAVOR}".fc"${FEDORA_MAJOR_VERSION}".x86_64 \
-        kernel-devel-"${AKMODS_FLAVOR}".fc"${FEDORA_MAJOR_VERSION}".x86_64
+# # Install kernel-fsync
+# RUN wget https://copr.fedorainfracloud.org/coprs/sentry/kernel-fsync/repo/fedora-"${FEDORA_MAJOR_VERSION}"/sentry-kernel-fsync-fedora-"${FEDORA_MAJOR_VERSION}".repo -O /etc/yum.repos.d/_copr_sentry-kernel-fsync.repo && \
+#     rpm-ostree cliwrap install-to-root / && \
+#     rpm-ostree override replace \
+#     --experimental \
+#     --from repo=copr:copr.fedorainfracloud.org:sentry:kernel-fsync \
+#         kernel-"${AKMODS_FLAVOR}".fc"${FEDORA_MAJOR_VERSION}".x86_64 \
+#         kernel-core-"${AKMODS_FLAVOR}".fc"${FEDORA_MAJOR_VERSION}".x86_64 \
+#         kernel-modules-"${AKMODS_FLAVOR}".fc"${FEDORA_MAJOR_VERSION}".x86_64 \
+#         kernel-modules-core-"${AKMODS_FLAVOR}".fc"${FEDORA_MAJOR_VERSION}".x86_64 \
+#         kernel-modules-extra-"${AKMODS_FLAVOR}".fc"${FEDORA_MAJOR_VERSION}".x86_64 \
+#         kernel-uki-virt-"${AKMODS_FLAVOR}".fc"${FEDORA_MAJOR_VERSION}".x86_64
 
 # Setup firmware and asusctl for ASUS devices
 RUN if [[ "${IMAGE_FLAVOR}" =~ "asus" ]]; then \
@@ -421,6 +418,11 @@ RUN if grep -q "kinoite" <<< "${BASE_IMAGE_NAME}"; then \
         kf5-kio-file-widgets \
         kf5-kio-core \
         kf5-kio-gui && \
+    rpm-ostree override replace \
+    --experimental \
+    --from repo=copr:copr.fedorainfracloud.org:ublue-os:staging \
+        libadwaita \
+        gtk4 && \
     rpm-ostree install \
         steamdeck-kde-presets-desktop \
         wallpaper-engine-kde-plugin \
@@ -461,7 +463,8 @@ RUN if grep -q "kinoite" <<< "${BASE_IMAGE_NAME}"; then \
         gnome-shell && \
     rpm-ostree override replace \
     --experimental \
-    --from repo=copr:copr.fedorainfracloud.org:kylegospo:prompt \
+    --from repo=copr:copr.fedorainfracloud.org:ublue-os:staging \
+        gtk4 \
         vte291 \
         vte-profile \
         libadwaita && \
@@ -550,7 +553,6 @@ RUN /tmp/image-info.sh && \
     sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/_copr_kylegospo-vk_hdr_layer.repo && \
     sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/_copr_ycollet-audinux.repo && \
     sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/_copr_kylegospo-rom-properties.repo && \
-    sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/_copr_kylegospo-prompt.repo && \
     sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/_copr_kylegospo-joycond.repo && \
     sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/_copr_kylegospo-VTFLib.repo && \
     sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/_copr_kylegospo-webapp-manager.repo && \
@@ -786,7 +788,7 @@ FROM bazzite as bazzite-nvidia
 ARG IMAGE_NAME="${IMAGE_NAME:-bazzite-nvidia}"
 ARG IMAGE_VENDOR="${IMAGE_VENDOR:-ublue-os}"
 ARG IMAGE_FLAVOR="${IMAGE_FLAVOR:-nvidia}"
-ARG AKMODS_FLAVOR="${AKMODS_FLAVOR:-fsync}"
+ARG AKMODS_FLAVOR="${AKMODS_FLAVOR:-main}"
 ARG IMAGE_BRANCH="${IMAGE_BRANCH:-main}"
 ARG BASE_IMAGE_NAME="${BASE_IMAGE_NAME:-kinoite}"
 ARG FEDORA_MAJOR_VERSION="${FEDORA_MAJOR_VERSION:-39}"
